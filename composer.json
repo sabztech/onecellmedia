@@ -1,0 +1,16 @@
+{
+    "name": "itrat/onemediacell",
+    "autoload": {
+        "psr-4": {
+            "itrat\\onemediacell\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "One Media Cell"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.5"
+    }
+}
