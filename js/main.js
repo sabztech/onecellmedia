@@ -6,7 +6,7 @@ $(document).ready(function () {
         $('.navbar').toggleClass('nav-toggle');
     });
 
-    // Initial header background and scroll behavior
+    // Header background on scroll
     function updateHeaderBackground() {
         if ($(window).scrollTop() > 35) {
             $('.header').css({
@@ -15,39 +15,50 @@ $(document).ready(function () {
             });
         } else {
             $('.header').css({
-                'background': '#002e5f', // Previously was 'none'
+                'background': '#002e5f',
                 'box-shadow': 'none'
             });
         }
     }
 
-    // Apply initial header style on page load
+    // Apply header style on page load and scroll
     updateHeaderBackground();
-
-    // Apply header style on scroll
     $(window).on('scroll', function () {
         $('.fa-bars').removeClass('fa-times');
         $('.navbar').removeClass('nav-toggle');
         updateHeaderBackground();
     });
 
-    // Counter animation
-    const counters = document.querySelectorAll('.counter');
-    const speed = 120;
-    counters.forEach(counter => {
-        const updateCount = () => {
-            const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText;
-            const inc = target / speed;
-            if (count < target) {
-                counter.innerText = Math.ceil(count + inc);
-                setTimeout(updateCount, 1);
-            } else {
-                counter.innerText = target;
+    // --- COUNTER ANIMATION (RESTORED & FIXED) ---
+    // This uses the Waypoints library to trigger the animation when scrolled into view.
+    var countersAnimated = false; // A flag to ensure it only runs once
+
+    if ($('.counters').length) { // Check if the counters section exists
+        $('.counters').waypoint(function() {
+            if (!countersAnimated) { // Only run if it hasn't been animated yet
+                $('.counter').each(function () {
+                    var $this = $(this);
+                    var target = parseInt($this.attr('data-target'));
+                    $({ countNum: $this.text()}).animate({
+                        countNum: target
+                    }, {
+                        duration: 2000, // Animation duration in milliseconds
+                        easing: 'linear',
+                        step: function () {
+                            $this.text(Math.floor(this.countNum));
+                        },
+                        complete: function () {
+                            $this.text(this.countNum.toLocaleString('en-US')); // Format with commas if needed
+                        }
+                    });
+                });
+                countersAnimated = true; // Set the flag to true
             }
-        };
-        updateCount();
-    });
+        }, {
+            offset: '85%' // Trigger when the section is 85% visible
+        });
+    }
+
 
     // Owl Carousel initialization
     (function ($) {
@@ -61,18 +72,6 @@ $(document).ready(function () {
                 0: { items: 2 },
                 768: { items: 4 },
                 900: { items: 6 }
-            }
-        });
-
-        $(".testimonials-carousel").owlCarousel({
-            autoplay: true,
-            dots: true,
-            loop: true,
-            responsive: {
-                0: { items: 1 },
-                576: { items: 2 },
-                768: { items: 3 },
-                992: { items: 4 }
             }
         });
 
@@ -94,10 +93,14 @@ $(document).ready(function () {
 
     // Accordion
     $('.accordion-header').click(function () {
-        $('.accordion .accordion-body').slideUp(500);
-        $(this).next('.accordion-body').slideDown(500);
-        $('.accordion .accordion-header span').text('+');
-        $(this).children('span').text('-');
+        if (!$(this).next('.accordion-body').is(':visible')) {
+            $('.accordion .accordion-body').slideUp(500);
+            $('.accordion .accordion-header span').text('+');
+        }
+        $(this).next('.accordion-body').slideToggle(500);
+        $(this).children('span').text(function(i, text){
+            return text === '+' ? '-' : '+';
+        });
     });
 
 });
