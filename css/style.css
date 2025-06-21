@@ -7,6 +7,7 @@
     box-sizing: border-box;
     transition: all .2s linear;
     text-decoration: none;
+    /* margin-bottom: 0; */
 }
 
 html{
@@ -39,6 +40,17 @@ body{
     border-left: .4rem solid #002e5f;
 }
 
+.heading::before, .clients .section-header h2::before, .section-head h1::before{
+    top: 5.8rem;
+    left: -2rem;
+}
+
+.heading::after, .clients .section-header h2::after, .section-head h1::after{
+    bottom: -.5rem;
+    right: -2rem;
+    transform: rotate(180deg);
+}
+
 .faq-heading {
     color: #00bfff;
     margin-top: -2rem;
@@ -49,15 +61,14 @@ body{
     border-left: .4rem solid #00bfff;
 }
 
-.heading::before, .clients .section-header h2::before, .section-head h1::before{
-    top: 5.8rem;
-    left: -2rem;
+.faq-heading::before {
+    left: auto;
+    margin-left: -2.5rem;
 }
 
-.heading::after, .clients .section-header h2::after, .section-head h1::after{
-    bottom: -.5rem;
-    right: -2rem;
-    transform: rotate(180deg);
+.faq-heading::after {
+    right: auto;
+    margin-right: -2.5rem;
 }
 
 /* --- BUTTON STYLES --- */
@@ -77,10 +88,19 @@ body{
 }
 
 .about .btn:hover{
-    letter-spacing: .1rem;
+    /* letter-spacing: .1rem; */
     opacity: .9;
     color: white;
     background: #002e5f;
+    
+
+}
+.about .btn {
+    width: 22rem;
+    height: 4.5rem;
+    font-size: 1.8rem;
+    margin-top: 1rem;
+
 }
 
 .communicate .btn{
@@ -91,7 +111,7 @@ body{
 }
 
 .communicate .btn:hover{
-    letter-spacing: .1rem;
+    /* letter-spacing: .1rem; */
     opacity: .9;
     color: white;
     background: #00bfff;
@@ -103,7 +123,7 @@ body{
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    /* padding: 1rem 0rem; */
+    padding: 1rem 1rem;
     position: fixed;
     top: 0;
     left: 0;
@@ -121,6 +141,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 0;
+
 }
 
 .header .navbar ul li{
@@ -203,7 +225,7 @@ body{
 .about{
     min-height: auto;
     width: 100vw;
-    padding: 8rem 0;
+    padding: 0 0 8rem;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -236,8 +258,8 @@ body{
 
 /* --- SERVICES SECTION --- */
 .services-wrapper {
-    background-color: #f2f2f2;
-    padding: 8rem 0;
+    background-color: #fff;
+    padding: 0rem 0 6rem;
 }
 
 .section-head{
@@ -348,13 +370,16 @@ body{
 
 .communicate h3{
     font-size: 4rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+
 }
 
 .communicate p{
-    font-size: 2.2rem;
+     font-size: 2.2rem;
     line-height: 1.4;
-}
+    margin: 2rem 0;
+ }
 
 /* --- CLIENTS SECTION --- */
 .clients {
@@ -734,6 +759,7 @@ body{
         display: block;
         color: white;
         margin-right: 1rem;
+        
     }
 
     .header .fa-bars:hover{ color: #00bfff; }
@@ -790,4 +816,6 @@ body{
 	}
 
     .footer .copyright, .footer .credit { text-align: center; }
+
+
 }
